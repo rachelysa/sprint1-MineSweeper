@@ -52,12 +52,11 @@ function setMinesNegsCount(pos) {
     return count;
 
 }
-
-function cellClicked(event, i, j) {
-    // if (gGame.secsPassed === 0) timer();
+function showTheHidden(event, i, j){
     if (gIsHint === true) { showHint({ i: i, j: j }); return }
 
     if (event.button == 2) {
+        debugger
         if (gBoard[i][j].isMine) {
             gGame.markedCount++;
             checkGameOver();
@@ -99,11 +98,18 @@ function cellClicked(event, i, j) {
             for (var idj = j - 1; idj <= j + 1; idj++) {
                 if (idj < 0 || idj > gBoard[0].length - 1) continue;
                 if (gBoard[idi][idj].isShown) { continue };
-                cellClicked(event, idi, idj);
+                showTheHidden(event, idi, idj);
             }
         }
     }
-
+ 
+}
+function cellClicked(event, i, j) {
+    sessionStorage.setItem("key",gBoard);
+    sessionStorage.setItem("ww",gBoard);
+    showTheHidden(event, i, j);
+    // if (gGame.secsPassed === 0) timer();
+  
 }
 
 function showHint(pos) {
@@ -155,3 +161,9 @@ function ShowSafeClick() {
         renderFicher(gSafeClick, 'safe-click');
     }, 1000);
 }
+function goBack(){
+    gBoard= window.history.state;
+  window.history.back();
+    debugger
+    renderBoard(gBoard)
+ }

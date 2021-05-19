@@ -1,15 +1,16 @@
 'use strict';
 
-function renderBoard(mat,isShow) {
-  
+function renderBoard(mat) {
+
   var strHTML = '';
   for (var i = 0; i < mat.length; i++) {
     strHTML += '<tr>';
     for (var j = 0; j < mat[0].length; j++) {
-      var cell = mat[i][j];
-  
+    
+      var cell =(mat[i][j].isShown&&mat[i][j].minesAroundCount)? mat[i][j].minesAroundCount:'';
+      
       var className = 'cell cell' + i + '-' + j;
-      strHTML += '<td class="' + className + ' " onmousedown="cellClicked(event,' + i + ',' + j + ')"></td>'
+      strHTML += '<td class="' + className + ' " onmousedown="cellClicked(event,' + i + ',' + j + ')">'+cell+'</td>'
     }
     strHTML += '</tr>'
   }
@@ -28,7 +29,7 @@ function createBoard(boardSize) {
   }
   return board;
 }
-function renderAndUpdateCell(location, value,isShow=false,isMark=false,classToAdd=undefined) {
+function renderAndUpdateCell(location, value, isShow = false, isMark = false, classToAdd = undefined) {
   // Select the elCell and set the value
   gBoard[location.i][location.j].isShown = isShow;
 
@@ -36,7 +37,7 @@ function renderAndUpdateCell(location, value,isShow=false,isMark=false,classToAd
   var elCell = document.querySelector(`.cell${location.i}-${location.j}`);
   elCell.innerHTML = value;
   elCell.classList.toggle(classToAdd);
-  
+
 
 }
 
