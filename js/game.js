@@ -19,21 +19,21 @@ var gBoard;
 var gIsHint;
 var gTimerInterval;
 var gElHighScore;
-var gameFlow;
+var gGameFlow;
 var gIsByYourself;
 function initGame(event) {
     var size
-    gameFlow = [];
+    gGameFlow = [];
     createGame();
     if (event) {
-        if (event.id==='add-by-yourself') gIsByYourself = true;
+        if (event.id==='add-by-yourself') {gIsByYourself = true;size = 4;}
         else size = +event.id
     }
     else size = 4;
     gLevel = createLevel(size);
 
     gBoard = createBoard(gLevel.SIZE);
-    gameFlow.push(JSON.parse(JSON.stringify(gBoard)));
+    gGameFlow.push(JSON.parse(JSON.stringify(gBoard)));
 
     var elModal = document.querySelector('.modal');
     elModal.style.display = 'none';

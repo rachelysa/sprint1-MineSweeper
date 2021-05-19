@@ -25,7 +25,9 @@ function createBoard(boardSize) {
     return board;
 }
 
-function buildBoard(i, j) {
+function buildBoard(i, j) { 
+    
+    
     if (gIsByYourself) {
 
         gMinesCount = 0;
@@ -166,7 +168,7 @@ function cellClicked(event, i, j) {
             buildBoard(i, j)
         }
 
-        gameFlow.push(JSON.parse(JSON.stringify(gBoard)));
+        gGameFlow.push(JSON.parse(JSON.stringify(gBoard)));
         showTheHidden(event, i, j);
     }
 
@@ -233,7 +235,7 @@ function ShowSafeClick() {
 
 function goBack() {
     if (gGame.isOn) {
-        gBoard = gameFlow.pop();
+        gBoard = gGameFlow.pop();
 
         renderBoard(gBoard)
     }
