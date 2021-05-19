@@ -9,6 +9,7 @@
 
 <body onload="initGame()">
     <h1>Mine Sweeper game!!!</h1>
+    <h2>high score: <span class="high">0</span></h2>
     <button class="refresh"  onclick="initGame()"></button>
    
     <div class="count-nums">
@@ -18,13 +19,13 @@
         <button class="level" id="12" onclick="initGame(this)">--externe--</button>
     </div>
 
-    <div class="timer">01:00 </div>
+    <div class="timer">0 </div>
 
     <table border="1" cellpadding="10">
         <tbody class="board"></tbody>
     </table>
     
-    <div ><span class="live"></span><span class="hint"></span><span class="save"></span></div>
+    <div ><span class="live"></span><span class="hint"></span><span class="safe-click"></span></div>
     <script src="js/utils.js"></script>
     <script src="js/game.js"></script>
     <script src="js/board.js"></script>

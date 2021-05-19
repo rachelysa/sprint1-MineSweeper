@@ -34,7 +34,7 @@ function renderAndUpdateCell(location, value,isShow=false,isMark=false,classToAd
   gBoard[location.i][location.j].isMarked = isMark;
   var elCell = document.querySelector(`.cell${location.i}-${location.j}`);
   elCell.innerHTML = value;
-  elCell.classList.add(classToAdd);
+  elCell.classList.toggle(classToAdd);
   
 
 }
@@ -43,14 +43,7 @@ function getRandomIntInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
+
 function printNebsCount(boardSize) {
   var mat = [];
   for (var i = 0; i < boardSize; i++) {

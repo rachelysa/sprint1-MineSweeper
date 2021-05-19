@@ -1,31 +1,63 @@
 
 const MINE = '💣';
 const MARK = '🧪';
-const PLAY = '😷';
+const PLAY = '🙂';
 const WIN = '🤩';
 const LOSE = '🤧';
-const LIVE = '🙂';
+const LIVE = '❤️';
 const HINT = '🔒';
-
+const SAFECLICK = '👀'
 
 var gGame;
 var gLevel;
 var gLives;
 var gHints;
+var gSafeClick;
 var gElStatusBtn;
 var gBoard;
 var gIsHint;
+var gTimerInterval;
+var gElHighScore;
+
 function initGame(event) {
     createGame();
+
+    var size = (event) ? +event.id : 4
+    gLevel = createLevel(size);
+
+    gBoard = createBoard(gLevel.SIZE);
+    buildBoard();
+
+    addFichers();
+
+   
+
+
+}
+function addFichers() {
     gLives = [LIVE, LIVE, LIVE];
     gHints = ['<span id="1"onclick="useHint(this)">' + HINT + '</span>', '<span id="2" onclick="useHint(this)">' + HINT + '</span>', '<span id="3" onclick="useHint(this)">' + HINT + '</span>'];
-    render__(gLives, 'live');
-    render__(gHints, 'hint');
+    gSafeClick = ['<span id="1"onclick="ShowSafeClick(this)">' + SAFECLICK + '</span>', '<span id="1"onclick="ShowSafeClick(this)">' + SAFECLICK + '</span>', '<span id="1"onclick="ShowSafeClick(this)">' + SAFECLICK + '</span>']
+    renderFicher(gLives, 'live');
+    renderFicher(gHints, 'hint');
+    renderFicher(gSafeClick, 'safe-click');
     gIsHint = false;
     gElStatusBtn = document.querySelector('.refresh');
     gElStatusBtn.innerText = PLAY;
+    gElHighScore = document.querySelector('.high');
+    gElHighScore.innerText = localStorage.getItem("highScore");
+}
+
+function timer() {
+    var elTimer = document.querySelector('.timer');
+    gTimerInterval = setInterval(function () {
+        gGame.secsPassed++;
+        elTimer.innerText = gGame.secsPassed;
+    }, 1000);
+}
+
+function createLevel(size) {
     var minesCount;
-    var size = (event) ? +event.id : 4
     switch (size) {
         case 4:
             minesCount = 2
@@ -39,15 +71,9 @@ function initGame(event) {
 
     }
 
-    gLevel = (event) ? createLevel(+event.id, minesCount) : createLevel(4, 2);
-    gBoard = createBoard(gLevel.SIZE);
-    buildBoard();
-}
-
-function createLevel(size, mines) {
     level = {
         SIZE: size,
-        MINES: mines
+        MINES: minesCount
     };
     return level
 }
@@ -60,7 +86,8 @@ function createGame() {
         secsPassed: 0
     }
 }
-function render__(arr, classToChange) {
+
+function renderFicher(arr, classToChange) {
     var elToChange = document.querySelector('.' + classToChange);
     elToChange.innerHTML = ''
     for (let i = 0; i < arr.length; i++) {
@@ -69,14 +96,25 @@ function render__(arr, classToChange) {
     }
 
 }
+
 function checkGameOver() {
 
     var sumShow = gLevel.SIZE * gLevel.SIZE - gLevel.MINES
     if (gGame.markedCount === gLevel.MINES || gGame.shownCount === sumShow) {
+
         gElStatusBtn.innerText = WIN;
+        var lastHigh = localStorage.getItem("highScore");
+        if (!lastHigh || lastHigh > gGame.secsPassed) {
+            //להציג במסך
+            gElHighScore.innerText = gGame.secsPassed
+            localStorage.setItem("highScore", gGame.secsPassed);
+        }
+        debugger
+        clearInterval(gTimerInterval);
     }
 
 }
+
 function useHint(elHint) {
     if (gIsHint) {
         gIsHint = false;
