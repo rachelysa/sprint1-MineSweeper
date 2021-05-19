@@ -1,4 +1,5 @@
 
+'use strict';
 
 function createCellInBoard(isMine, nebsCount) {
     var cell = {
@@ -9,6 +10,7 @@ function createCellInBoard(isMine, nebsCount) {
     }
     return cell;
 }
+
 function buildBoard() {
 
     setMines();
@@ -36,6 +38,7 @@ function setMines() {
     }
 
 }
+
 function setMinesNegsCount(pos) {
     var count = 0;
     for (var i = pos.i - 1; i <= pos.i + 1; i++) {
@@ -49,12 +52,11 @@ function setMinesNegsCount(pos) {
     return count;
 
 }
+
 function cellClicked(event, i, j) {
     // if (gGame.secsPassed === 0) timer();
     if (gIsHint === true) { showHint({ i: i, j: j }); return }
 
-
-    // debugger
     if (event.button == 2) {
         if (gBoard[i][j].isMine) {
             gGame.markedCount++;
@@ -64,7 +66,6 @@ function cellClicked(event, i, j) {
         renderAndUpdateCell({ i: i, j: j }, MARK, false, true)
         return;
     }
-
 
     else if (gBoard[i][j].isMarked) {
         if (gBoard[i][j].isMine) gGame[i][j].markedCount--;
@@ -83,24 +84,20 @@ function cellClicked(event, i, j) {
     else if (gBoard[i][j].isShown) return;
 
     else if (gBoard[i][j].minesAroundCount !== 0) {
-        console.log(gBoard[i][j], i, j, gGame.shownCount, '1');
 
         renderAndUpdateCell({ i: i, j: j }, gBoard[i][j].minesAroundCount, true, false, 'show');
         gGame.shownCount++;
         return
     }
     else {
-        // gBoard[i][j].isShown = true;
         renderAndUpdateCell({ i: i, j: j }, '', true, false, 'show');
         gBoard[i][j].isShown = true;
-        console.log(gBoard[i][j], i, j, gGame.shownCount);
         gGame.shownCount++;
         checkGameOver();
         for (var idi = i - 1; idi <= i + 1; idi++) {
             if (idi < 0 || idi > gBoard.length - 1) continue;
             for (var idj = j - 1; idj <= j + 1; idj++) {
                 if (idj < 0 || idj > gBoard[0].length - 1) continue;
-                // if (idi === i && idj === j) continue;
                 if (gBoard[idi][idj].isShown) { continue };
                 cellClicked(event, idi, idj);
             }
@@ -108,9 +105,6 @@ function cellClicked(event, i, j) {
     }
 
 }
-
-
-
 
 function showHint(pos) {
 

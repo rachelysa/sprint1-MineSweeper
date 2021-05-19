@@ -1,3 +1,4 @@
+'use strict';
 
 const MINE = '💣';
 const MARK = '🧪';
@@ -71,7 +72,7 @@ function createLevel(size) {
 
     }
 
-    level = {
+  var level = {
         SIZE: size,
         MINES: minesCount
     };

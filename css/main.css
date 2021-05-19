@@ -1,6 +1,6 @@
 body{
     text-align: center;
-    background-image: url('/more/back.jpg');
+    background-image: url('../more/back.jpg');
     background-size: 100%;
     background-repeat: no-repeat;
 }
