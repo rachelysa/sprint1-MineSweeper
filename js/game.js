@@ -1,24 +1,31 @@
 
 const MINE = '💣';
-const FLAG = '🚩';
+const MARK = '🧪';
 const PLAY = '😷';
 const WIN = '🤩';
 const LOSE = '🤧';
 const LIVE = '🙂';
+const HINT = '🔒';
+
 
 var gGame;
 var gLevel;
 var gLives;
+var gHints;
 var gElStatusBtn;
 var gBoard;
+var gIsHint;
 function initGame(event) {
     createGame();
     gLives = [LIVE, LIVE, LIVE];
-    render__(gLives, 'live')
+    gHints = ['<span id="1"onclick="useHint(this)">' + HINT + '</span>', '<span id="2" onclick="useHint(this)">' + HINT + '</span>', '<span id="3" onclick="useHint(this)">' + HINT + '</span>'];
+    render__(gLives, 'live');
+    render__(gHints, 'hint');
+    gIsHint = false;
     gElStatusBtn = document.querySelector('.refresh');
     gElStatusBtn.innerText = PLAY;
     var minesCount;
-    var size=(event)?+event.id:4
+    var size = (event) ? +event.id : 4
     switch (size) {
         case 4:
             minesCount = 2
@@ -31,18 +38,20 @@ function initGame(event) {
             break;
 
     }
-    
-    gLevel = (event) ? createLevel(+event.id,minesCount) :createLevel(4,2);
+
+    gLevel = (event) ? createLevel(+event.id, minesCount) : createLevel(4, 2);
     gBoard = createBoard(gLevel.SIZE);
     buildBoard();
 }
-function createLevel(size,mines) {
+
+function createLevel(size, mines) {
     level = {
         SIZE: size,
         MINES: mines
     };
     return level
 }
+
 function createGame() {
     gGame = {
         isOn: true,
@@ -53,13 +62,30 @@ function createGame() {
 }
 function render__(arr, classToChange) {
     var elToChange = document.querySelector('.' + classToChange);
-    elToChange.innerText = ''
+    elToChange.innerHTML = ''
     for (let i = 0; i < arr.length; i++) {
 
-        elToChange.innerText += arr[i]
+        elToChange.innerHTML += arr[i]
     }
 
 }
-function checkGameOver(){
-    
+function checkGameOver() {
+
+    var sumShow = gLevel.SIZE * gLevel.SIZE - gLevel.MINES
+    if (gGame.markedCount === gLevel.MINES || gGame.shownCount === sumShow) {
+        gElStatusBtn.innerText = WIN;
+    }
+
+}
+function useHint(elHint) {
+    if (gIsHint) {
+        gIsHint = false;
+        elHint.innerText = HINT
+    }
+    else {
+        gIsHint = true;
+        elHint.innerText = '🔓'
+    }
+
+
 }

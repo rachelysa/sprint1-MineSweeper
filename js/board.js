@@ -27,7 +27,7 @@ function buildBoard() {
 }
 
 function setMines() {
- 
+
     for (let i = 0; i < gLevel.MINES; i++) {
         var idi = getRandomIntInt(0, gLevel.SIZE);
         var idj = getRandomIntInt(0, gLevel.SIZE);
@@ -50,11 +50,14 @@ function setMinesNegsCount(pos) {
 
 }
 function cellClicked(event, i, j) {
-
+    if (gIsHint === true) { showHint({ i: i, j: j }); return }
     if (event.button == 2) {
-        if (gBoard[i][j].isMine) gGame[i][j].markedCount++;
-        // if()
-        renderAndUpdateCell({ i: i, j: j }, FLAG, false, true)
+        if (gBoard[i][j].isMine) {
+            gGame.markedCount++;
+            checkGameOver();
+        };
+
+        renderAndUpdateCell({ i: i, j: j }, MARK, false, true)
         return;
     }
     if (gBoard[i][j].isMarked) {
@@ -82,9 +85,40 @@ function cellClicked(event, i, j) {
             if (idi === i && idj === j) continue;
             renderAndUpdateCell({ i: i, j: j }, '', true, false, 'show');
             gGame.shownCount++;
+            checkGameOver();
             cellClicked(event, idi, idj);
+
         }
 
     }
 
+}
+
+
+function showHint(pos) {
+    for (var i = pos.i - 1; i <= pos.i + 1; i++) {
+        if (i < 0 || i > gBoard.length - 1) continue;
+        for (var j = pos.j - 1; j <= pos.j + 1; j++) {
+            if (j < 0 || j > gBoard[0].length - 1) continue;
+
+            if (gBoard[i][j].isShown) continue;
+            if (gBoard[i][j].isMine) renderAndUpdateCell({ i: i, j: j }, MINE, false, true,'show');
+            else if (gBoard[i][j].minesAroundCount != 0)
+                renderAndUpdateCell({ i: i, j: j }, gBoard[i][j].minesAroundCount, false, true,'show')
+        }
+    }
+    setTimeout(() => {
+        for (var i = pos.i - 1; i <= pos.i + 1; i++) {
+            if (i < 0 || i > gBoard.length - 1) continue;
+            for (var j = pos.j - 1; j <= pos.j + 1; j++) {
+                if (j < 0 || j > gBoard[0].length - 1) continue;
+                if (gBoard[i][j].isShown) continue;
+
+                renderAndUpdateCell({ i: i, j: j }, '', false, true,'un-show')
+            }
+        }
+        gIsHint = false;
+        gHints.splice(0, 1);
+        render__(gHints, 'hint');
+    }, 1000);
 }

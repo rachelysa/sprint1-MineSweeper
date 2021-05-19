@@ -1,6 +1,6 @@
 body{
     text-align: center;
-    background-image: url('/more/back.jpg');
+    background-image: url('more/back.jpg');
     background-size: 100%;
     background-repeat: no-repeat;
 }
@@ -38,9 +38,17 @@ table{
  }
  .live{
      font-size: 30px;
+     margin: 10px;
  }
+ .hint{
+    margin: 10px;
+    font-size: 30px;
+}
  .show{
      background-color: white;
+ }
+ .un-show{
+    background-color: rgb(211, 232, 221);
  }
  .show-mine{
     background-color: rgb(45, 134, 44);
