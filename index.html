@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mine Sweeper</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body onload="initGame()">
+    <h1>Mine Sweeper game!!!</h1>
+    <button class="refresh"  onclick="initGame()"></button>
+   
+    <div class="count-nums">
+        <div class=".div"> choose your level</div><br>
+        <button class="level" id="4" onclick="initGame(this)">--easy--</button>
+        <button class="level" id="8" onclick="initGame(this)">--hurd--</button>
+        <button class="level" id="12" onclick="initGame(this)">--externe--</button>
+    </div>
+
+    <div class="timer">01:00 </div>
+
+    <table border="1" cellpadding="10">
+        <tbody class="board"></tbody>
+    </table>
+    
+    <div class="live"></div>
+    <script src="js/utils.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/board.js"></script>
+
+</body>
+
+</html>

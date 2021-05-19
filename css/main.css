@@ -1,0 +1,47 @@
+body{
+    text-align: center;
+    background-image: url('/more/back.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.level{
+    background-color: rgb(103, 179, 116);
+    height: 40px;
+    border: rgb(45, 134, 44) 2px solid;
+    border-radius: 7px;
+    margin: 5px;
+    padding: 10px;
+}
+table{
+    margin: auto;
+    background-color: rgb(197, 225, 209);
+    opacity: 70;
+ }
+ .board td {
+     width: 30px;
+     height: 30px;
+     text-align: center;
+     font-size: 18px;
+     font-weight: bold;
+     transition: 0.5s;
+    
+ }
+ .refresh{
+    background-color: rgb(211, 232, 221);
+    height: 80px;
+    width: 80px;
+    border: rgb(45, 134, 44) 2px solid;
+    border-radius: 7px;
+    margin: 5px;
+    padding: 10px;
+    font-size: 30px;
+ }
+ .live{
+     font-size: 30px;
+ }
+ .show{
+     background-color: white;
+ }
+ .show-mine{
+    background-color: rgb(45, 134, 44);
+ }
