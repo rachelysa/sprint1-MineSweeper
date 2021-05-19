@@ -10,14 +10,14 @@
 <body onload="initGame()">
     <h1>Mine Sweeper game!!!</h1>
     <h2>high score: <span class="high">0</span></h2>
-    <button class="refresh"  onclick="initGame()"></button>
-    <button class="refresh"  onclick="goBack()">↪️</button>
-   
+    <button  class="refresh " onclick="initGame(this)"></button>
+    <button class="refresh" onclick="goBack()">↪️</button><br>
+  <button class="level" id="add-by-yourself" onclick="initGame(this)">-- Add mine by yourself--</button>
     <div class="count-nums">
         <div class=".div"> choose your level</div><br>
-        <button class="level" id="4" onclick="initGame(this)">--easy--</button>
-        <button class="level" id="8" onclick="initGame(this)">--hurd--</button>
-        <button class="level" id="12" onclick="initGame(this)">--externe--</button>
+        <button class="level" id="4" onclick="initGame(this)">-- easy --</button>
+        <button class="level" id="8" onclick="initGame(this)">-- hard --</button>
+        <button class="level" id="12" onclick="initGame(this)">-- extreme --</button>
     </div>
 
     <div class="timer">0 </div>
@@ -25,8 +25,13 @@
     <table border="1" cellpadding="10">
         <tbody class="board"></tbody>
     </table>
-    
-    <div ><span class="live"></span><span class="hint"></span><span class="safe-click"></span></div>
+
+    <div><span class="live"></span><span class="hint"></span><span class="safe-click"></span></div>
+    <div class="modal">
+        <h3>Game Over</h3>
+        <button onclick="initGame()">Restart Game</button>
+    </div>
+   
     <script src="js/utils.js"></script>
     <script src="js/game.js"></script>
     <script src="js/board.js"></script>

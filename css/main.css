@@ -49,11 +49,34 @@ table{
     font-size: 30px;
 }
  .show{
-     background-color: white;
+     background-color: rgb(223, 223, 223);
  }
  .un-show{
     background-color: rgb(197, 225, 209);
  }
  .show-mine{
-    background-color: rgb(45, 134, 44);
+    background-color: rgb(255, 255, 255);
  }
+ .modal {
+    text-align: center;
+    background-color: rgb(45, 134, 44);
+    display:none;
+    position: absolute;
+    top: 30%;
+    left:40%;
+    padding: 15px;
+    width: 300px;
+    border-radius: 10px;
+  }
+  .modal button {
+    border-radius: 5px;
+  border: rgb(255, 255, 255) 5px solid;
+    cursor: pointer;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(45, 134, 44);
+    /* background-color: rgb(204, 230, 112); */
+  }
+  .mine{
+      height: 25px;
+  }

@@ -3,14 +3,23 @@
 function renderBoard(mat) {
 
   var strHTML = '';
+  var cell;
   for (var i = 0; i < mat.length; i++) {
     strHTML += '<tr>';
     for (var j = 0; j < mat[0].length; j++) {
-    
-      var cell =(mat[i][j].isShown&&mat[i][j].minesAroundCount)? mat[i][j].minesAroundCount:'';
-      
+      var cell='';
+    if(mat[i][j].isShown){
+
+       cell=(mat[i][j].minesAroundCount)?mat[i][j].minesAroundCount:'';
+       if(mat[i][j].isShown&&mat[i][j].isMine)cell=MINE;
+    }
       var className = 'cell cell' + i + '-' + j;
-      strHTML += '<td class="' + className + ' " onmousedown="cellClicked(event,' + i + ',' + j + ')">'+cell+'</td>'
+      if(mat[i][j].isShown){
+        if(mat[i][j].isMine) className+=' show-mine';
+        else className+=' show';
+      }
+
+      strHTML += '<td class="' + className + ' " onmousedown="cellClicked(event,' + i + ',' + j + ')" oncontextmenu="return false">'+cell+'</td>'
     }
     strHTML += '</tr>'
   }
@@ -18,19 +27,10 @@ function renderBoard(mat) {
   var elContainer = document.querySelector('.board');
   elContainer.innerHTML = strHTML;
 }
-function createBoard(boardSize) {
-  var board = [];
-  for (var i = 0; i < boardSize; i++) {
-    board[i] = [];
-    for (var j = 0; j < boardSize; j++) {
-      board[i][j] = '';
-    }
 
-  }
-  return board;
-}
 function renderAndUpdateCell(location, value, isShow = false, isMark = false, classToAdd = undefined) {
   // Select the elCell and set the value
+
   gBoard[location.i][location.j].isShown = isShow;
 
   gBoard[location.i][location.j].isMarked = isMark;
