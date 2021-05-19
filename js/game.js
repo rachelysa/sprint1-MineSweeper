@@ -30,7 +30,7 @@ function initGame(event) {
 
     addFichers();
 
-   
+    timer();
 
 
 }
