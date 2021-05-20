@@ -140,13 +140,19 @@ function renderFicher(arr, classToChange) {
 }
 
 function timer() {
-    var audio = new Audio('./audio/tick.wav');
 
+    var audio = new Audio('./audio/tick.wav');
+    var second = 0;
+    var minute = 0;
+    var hour = 0
     var elTimer = document.querySelector('.timer');
     gTimerInterval = setInterval(function () {
         gGame.secsPassed++;
+        second++;
+        if (gGame.secsPassed === 60) { second = 0; minute++ }
+        if (minute === 60) { minute = 0; hour++ }
         audio.play();
-        elTimer.innerText = gGame.secsPassed;
+        elTimer.innerText = hour + ':' + minute + ':' + second;
     }, 1000);
 }
 
@@ -175,14 +181,14 @@ function GameOver(isWin) {
     elModal.style.display = 'block';
     var elH3WnOrLose = elModal.querySelector('h3');
     elH3WnOrLose.innerText = (isWin) ? 'you win!!!!!' : 'game ovar...;'
-    gElStatusBtn.innerText=(isWin)?WIN:LOSE;
+    gElStatusBtn.innerText = (isWin) ? WIN : LOSE;
     setTimeout(function () {
         elModal.style.display = 'none';
     }, 3000)
     //finish the game
     gGame.isOn = false;
     clearTimer();
-   
+
 }
 
 function checkGameOver() {
