@@ -1,13 +1,15 @@
 'use strict';
 
-const MINE = '<img src="./more/MINE.gif" class="mine">';
+const MINE = '<img src="./img/MINE.gif" class="mine">';
 const MARK = '🧪';
 const PLAY = '🙂';
 const WIN = '🤩';
 const LOSE = '🤧';
 const LIVE = '❤️';
-const HINT = '🔒';
-const SAFECLICK = '👀'
+const HINT = ' ❕';
+const SAFECLICK = '👁‍🗨'
+
+
 
 var gGame;
 var gLevel;
@@ -21,71 +23,60 @@ var gTimerInterval;
 var gElHighScore;
 var gGameFlow;
 var gIsByYourself;
+var gHighScore;
+var gCurrHighScore;
+
 function initGame(event) {
-    var size
+    var levelSize
+
     gGameFlow = [];
+
     createGame();
+
     if (event) {
-        if (event.id==='add-by-yourself') {gIsByYourself = true;size = 4;}
-        else size = +event.id
+        if (event.id === 'add-by-yourself') {
+            gIsByYourself = true;
+            levelSize = 4;
+            var elBtnStart = document.querySelector('.start');
+            elBtnStart.style.display = 'inline'
+
+        }
+        else levelSize = +event.id
     }
-    else size = 4;
-    gLevel = createLevel(size);
+    else levelSize = 4;
 
+    gHighScore = JSON.parse(localStorage.getItem("highScore"));
+    if (!gHighScore) {
+        gHighScore = JSON.stringify({ 'easy': 0, 'hard': 0, 'extreme': 0 })
+        localStorage.setItem("highScore", gHighScore);
+    }
+
+    gLevel = createLevel(levelSize);
     gBoard = createBoard(gLevel.SIZE);
-    gGameFlow.push(JSON.parse(JSON.stringify(gBoard)));
 
-    var elModal = document.querySelector('.modal');
-    elModal.style.display = 'none';
+    gGameFlow.push(JSON.parse(JSON.stringify(gBoard)));
 
     renderBoard(gBoard);
 
     addFichers();
-
+    //for restart button
     clearTimer();
-}
-
-function clearTimer() {
-    clearInterval(gTimerInterval);
-    gTimerInterval = undefined;
-
-    var elTimer = document.querySelector('.timer');
-    elTimer.innerText = 0;
-}
-
-function addFichers() {
-    gLives = [LIVE, LIVE, LIVE];
-    gHints = ['<span id="1"onclick="useHint(this)">' + HINT + '</span>', '<span id="2" onclick="useHint(this)">' + HINT + '</span>', '<span id="3" onclick="useHint(this)">' + HINT + '</span>'];
-    gSafeClick = ['<span id="1"onclick="ShowSafeClick(this)">' + SAFECLICK + '</span>', '<span id="1"onclick="ShowSafeClick(this)">' + SAFECLICK + '</span>', '<span id="1"onclick="ShowSafeClick(this)">' + SAFECLICK + '</span>']
-    renderFicher(gLives, 'live');
-    renderFicher(gHints, 'hint');
-    renderFicher(gSafeClick, 'safe-click');
-    gIsHint = false;
-    gElStatusBtn = document.querySelector('.refresh');
-    gElStatusBtn.innerText = PLAY;
-    gElHighScore = document.querySelector('.high');
-    gElHighScore.innerText = localStorage.getItem("highScore");
-}
-
-function timer() {
-    var elTimer = document.querySelector('.timer');
-    gTimerInterval = setInterval(function () {
-        gGame.secsPassed++;
-        elTimer.innerText = gGame.secsPassed;
-    }, 1000);
 }
 
 function createLevel(size) {
     var minesCount;
     switch (size) {
         case 4:
-            minesCount = 2
+            minesCount = 2;
+            gCurrHighScore = gHighScore.easy;
             break;
         case 8:
             minesCount = 10
+            gCurrHighScore = gHighScore.hard;
             break;
         case 12:
-            minesCount = 30
+            minesCount = 30;
+            gCurrHighScore = gHighScore.extreme;
             break;
 
     }
@@ -106,6 +97,34 @@ function createGame() {
     }
 }
 
+function addFichers() {
+    gLives = [];
+    gHints = []
+    gSafeClick = [];
+    for (let i = 0; i < 3; i++) {
+        gLives[i] = LIVE;
+        gHints[i] = '<span id="1"onclick="useHint(this)">' + HINT + '</span>';
+        gSafeClick[i] = '<span id="1"onclick="ShowAndHideSafeClick(this)">' + SAFECLICK + '</span>';
+    }
+
+    renderFicher(gLives, 'live');
+    renderFicher(gHints, 'hint');
+    renderFicher(gSafeClick, 'safe-click');
+
+    gIsHint = false;
+
+    gElStatusBtn = document.querySelector('.restart');
+    gElStatusBtn.innerText = PLAY;
+
+    var elModal = document.querySelector('.modal');
+    elModal.style.display = 'none';
+
+    gElHighScore = document.querySelector('.high');
+    gElHighScore.innerText = gCurrHighScore;
+
+
+}
+
 function renderFicher(arr, classToChange) {
     var elToChange = document.querySelector('.' + classToChange);
     elToChange.innerHTML = '';
@@ -115,31 +134,56 @@ function renderFicher(arr, classToChange) {
     }
 
 }
+
+function timer() {
+    var audio = new Audio('./audio/tick.wav');
+
+    var elTimer = document.querySelector('.timer');
+    gTimerInterval = setInterval(function () {
+        gGame.secsPassed++;
+        audio.play();
+        elTimer.innerText = gGame.secsPassed;
+    }, 1000);
+}
+
+function clearTimer() {
+    clearInterval(gTimerInterval);
+    gTimerInterval = undefined;
+
+    var elTimer = document.querySelector('.timer');
+    elTimer.innerText = 0;
+}
+
 function GameOver(isWin) {
 
-    var lastHigh = localStorage.getItem("highScore");
-    if (!lastHigh || lastHigh < gGame.secsPassed) {
-        //להציג במסך
-        gElHighScore.innerText = gGame.secsPassed
-        localStorage.setItem("highScore", gGame.secsPassed);
+    //check high score
+    if (gCurrHighScore == 0 || gCurrHighScore > gGame.secsPassed && isWin) {
+
+        if (gLevel.SIZE === 4) gHighScore.easy = gGame.secsPassed;
+        else if (gLevel.SIZE === 8) gHighScore.hard = gGame.secsPassed;
+        else gHighScore.extreme = gGame.secsPassed;
+        localStorage.setItem("highScore", JSON.stringify(gHighScore));
+        gCurrHighScore = gGame.secsPassed;
+        gElHighScore.innerText = gCurrHighScore
     }
+    //add the modal
     var elModal = document.querySelector('.modal');
     elModal.style.display = 'block';
-    if (isWin) {
-        var elH3WnOrLose = elModal.querySelector('h3');
-        elH3WnOrLose.innerText = 'you win!!!!!';
-    }
-    gGame.isOn = false;
-    clearTimer();
+    var elH3WnOrLose = elModal.querySelector('h3');
+    elH3WnOrLose.innerText = (isWin) ? 'you win!!!!!' : 'game ovar...;';
     setTimeout(function () {
         elModal.style.display = 'none';
     }, 3000)
+    //finish the game
+    gGame.isOn = false;
+    clearTimer();
+   
 }
 
 function checkGameOver() {
 
     var sumShow = gLevel.SIZE * gLevel.SIZE;
-    gElStatusBtn.innerText = WIN;
+
     if (gGame.markedCount + gGame.shownCount + 3 - gLives.length === sumShow) GameOver(true)
 
 
@@ -152,7 +196,7 @@ function useHint(elHint) {
     }
     else {
         gIsHint = true;
-        elHint.innerText = '🔓'
+        elHint.innerText = '❗️'
     }
 
 

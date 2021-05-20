@@ -1,65 +1,138 @@
 body{
+    height: 1000px;
     text-align: center;
-    background-image: url('../more/back.jpg');
-    background-size: 100%;
+    background-image: url('../img/back.jpg');
+    background-size: cover;
+    font-family: Ink Free;
     background-repeat: no-repeat;
 }
-.level{
-    background-color: rgb(103, 179, 116);
-    height: 40px;
-    border: rgb(45, 134, 44) 2px solid;
+
+h2 {
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 4px rgb(146, 27, 38), 0 0 5px rgb(143, 57, 157);
+}
+
+.action-btn{
+    background-color: rgb(245, 174, 180);
+    height:60px;
+    width: 60px;
+    box-shadow: inset 2px 2px 5px rgb(146, 27, 38),2px 2px 5px rgb(146, 27, 38) ;
+    border: rgb(146, 27, 38) 2px solid;
     border-radius: 7px;
     margin: 5px;
     padding: 10px;
+    font-size: 25px;
 }
+
+.start{
+    display: none;
+    
+}
+
+ .timer{
+    background-color: rgb(255, 255, 255);
+    opacity: 0.7;
+    box-shadow:inset 2px 2px 4px rgb(146, 27, 38), 2px 2px 5px rgb(143, 57, 157);
+    height: 30px;
+    width: 205px;
+    display: inline-block;
+    /* border: rgb(45, 134, 44) 2px solid; */
+    border-radius: 7px;
+
+    font-size: 22px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.level{
+    background-color: rgb(234, 166, 246);
+    height: 40px;
+    font-family: Ink Free;
+    font-weight: bold;
+    font-size: large;
+    border: rgb(143, 57, 157) 2px solid;
+    box-shadow: inset 2px 2px 5px rgb(143, 57, 157) ,2px 2px 5px rgb(143, 57, 157) ;
+    border-radius: 7px;
+    margin: 3px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
 table{
     margin: auto;
-    background-color: rgb(197, 225, 209);
-    opacity: 70;
- }
- .board td {
+    border-radius: 5px;
+    border: 0px solid rgb(158, 112, 165);
+    padding: 2px;
+    box-shadow: 5px 5px 10px rgb(146, 27, 38), 5px 5px 10px rgb(143, 57, 157);
+    background-color: rgb(197, 225, 209)
+ 
+}
+
+.board td {
+    /* background-color:  */
      width: 30px;
      height: 30px;
      text-align: center;
      font-size: 18px;
      font-weight: bold;
      transition: 0.5s;
+    border-radius:5px;
+     border: 2px  rgb(158, 112, 165) solid;
     
- }
- .refresh{
-    background-color: rgb(211, 232, 221);
-    height: 80px;
-    width: 80px;
-    border: rgb(45, 134, 44) 2px solid;
-    border-radius: 7px;
-    margin: 5px;
-    padding: 10px;
-    font-size: 30px;
- }
+}
+
+.board td:hover{
+    background-color: rgb(230, 173, 173);
+}
+
+.mine{
+    height: 25px;
+}
+
+ .fichers{
+    margin: auto;
+    margin-top: 20px;
+    width: 500px;
+    padding: 15px;
+    background-color: rgb(241, 241, 241);
+    box-shadow:inset 2px 2px 4px rgb(146, 27, 38), 2px 2px 5px rgb(143, 57, 157);
+    border-radius: 10px;
+    opacity: 0.7;
+}
+
  .live{
      font-size: 30px;
-     margin: 10px;
- }
+     margin: 20px;
+}
+
  .hint{
-    margin: 10px;
+    margin: 20px;
     font-size: 30px;
 }
+
 .safe-click{
-    margin: 10px;
+    margin: 20px;
     font-size: 30px;
 }
- .show{
-     background-color: rgb(223, 223, 223);
- }
- .un-show{
+
+.show{
+     background-color: rgb(255, 255, 255);
+}
+
+.un-show{
     background-color: rgb(197, 225, 209);
- }
- .show-mine{
+}
+
+.show-mine{
     background-color: rgb(255, 255, 255);
- }
- .modal {
+}
+
+.modal {
     text-align: center;
-    background-color: rgb(45, 134, 44);
+    background-color: rgb(241, 241, 241);
+    color: white;
+    text-shadow: 2px 2px 4px rgb(146, 27, 38), 2px 2px 5px rgb(143, 57, 157);
+    box-shadow:inset 2px 2px 4px rgb(146, 27, 38), 2px 2px 5px rgb(143, 57, 157);
     display:none;
     position: absolute;
     top: 30%;
@@ -67,16 +140,21 @@ table{
     padding: 15px;
     width: 300px;
     border-radius: 10px;
-  }
-  .modal button {
+}
+
+.modal button {
     border-radius: 5px;
-  border: rgb(255, 255, 255) 5px solid;
+    border: rgb(146, 27, 38) 1px solid;
     cursor: pointer;
     height: 30px;
     background-color: rgb(255, 255, 255);
-    color: rgb(45, 134, 44);
-    /* background-color: rgb(204, 230, 112); */
-  }
-  .mine{
-      height: 25px;
-  }
+    color: rgb(143, 57, 157);
+
+}
+
+.logo{
+      bottom:  10px;
+      right:  10px;
+      position: absolute;
+      height: 150px;
+}
