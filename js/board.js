@@ -164,7 +164,6 @@ function mineClicked(i, j) {
     gLives.splice(0, 1);
     renderFicher(gLives, 'live');
     if (gLives.length === 0) {
-        gElStatusBtn.innerText = LOSE;
         GameOver(false);
         showAllMines();
         return;

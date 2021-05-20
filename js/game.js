@@ -170,7 +170,8 @@ function GameOver(isWin) {
     var elModal = document.querySelector('.modal');
     elModal.style.display = 'block';
     var elH3WnOrLose = elModal.querySelector('h3');
-    elH3WnOrLose.innerText = (isWin) ? 'you win!!!!!' : 'game ovar...;';
+    elH3WnOrLose.innerText = (isWin) ? 'you win!!!!!' : 'game ovar...;'
+    gElStatusBtn.innerText=(isWin)?WIN:LOSE;
     setTimeout(function () {
         elModal.style.display = 'none';
     }, 3000)
