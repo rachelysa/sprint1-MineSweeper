@@ -8,18 +8,17 @@
 </head>
 
 <body onload="initGame()">
-    <!-- <h1>My Coronavirus game!!!</h1> -->
+
     <h2>High Score: <span class="high">0</span></h2>
+
     <button class="action-btn" onclick="goBack()" title="go back">✖️</button>
     <button class="action-btn restart" onclick="initGame()" title="restart"></button>
-
     <button class="action-btn" id="add-by-yourself" onclick="initGame(this)" title="add by yourself">➕</button>
-    <button class="action-btn start" onclick="showTheHidden(event )" title="start game">✔️</button>
-    <br>
+    <button class="action-btn start" onclick="showTheHidden(event )" title="start game">✔️</button>   <br>
+ 
     <div class="timer" title="timer">0 </div>
 
     <div class="count-nums">
-        <!-- <div class=".div"> choose your level</div><br> -->
         <button class="level" id="4" onclick="initGame(this)">-easy-</button>
         <button class="level" id="8" onclick="initGame(this)">-hard-</button>
         <button class="level" id="12" onclick="initGame(this)">-extreme-</button>
@@ -27,21 +26,23 @@
 
 
 
-    <table border="1" cellpadding="10">
+    <table  cellpadding="10">
         <tbody class="board"></tbody>
     </table>
 
     <div class="fichers"><span class="live" title="lives left"></span><span class="hint" title="hint"></span><span
             class="safe-click" title="safe click"></span></div>
+
     <div class="modal">
         <h3>Game Over</h3>
         <button onclick="initGame()">Restart Game</button>
     </div>
 
+    <img class="logo"src="./img/logo.gif" />
     <script src="js/utils.js"></script>
     <script src="js/game.js"></script>
     <script src="js/board.js"></script>
-    <img class="logo"src="./img/logo.gif" />
+
 </body>
 
 </html>
