@@ -102,25 +102,26 @@ function showTheHidden(event, i, j) {
         if (gBoard[i][j].isShown) return;
         //right click
         if (event.button == 2) {
+            if (!gBoard[i][j].isMarked) {
             gGame.markedCount++;
             checkGameOver();
-            renderAndUpdateCell({ i: i, j: j }, MARK, false, true);
+            renderAndUpdateCell({ i: i, j: j }, MARK, false, true);}
+            else {
+                gGame.markedCount--;
+                
+                renderAndUpdateCell({ i: i, j: j }, '')
+                return;
+            }
             return;
-        }
-        //remove the mark
-        else if (gBoard[i][j].isMarked) {
-            gGame.markedCount--;
-            
-            renderAndUpdateCell({ i: i, j: j }, '')
-            return;
-        }
+        } 
+          if (gBoard[i][j].isMarked) return;   
         //mine Clicked
-        else if (gBoard[i][j].isMine) {
+         if (gBoard[i][j].isMine) {
             mineClicked(i, j)
             return;
         }
         //stop the Recursion
-        else if (gBoard[i][j].minesAroundCount !== 0) {
+         if (gBoard[i][j].minesAroundCount !== 0) {
             renderAndUpdateCell({ i: i, j: j }, gBoard[i][j].minesAroundCount, true, false, 'show');
             gGame.shownCount++;
             checkGameOver()
