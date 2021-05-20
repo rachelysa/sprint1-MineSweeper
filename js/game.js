@@ -31,7 +31,7 @@ var gHighScore;
 var gCurrHighScore;
 
 function initGame(event) {
-    var levelSize
+    var levelSize;
 
     gGameFlow = [];
 
@@ -161,7 +161,7 @@ function clearTimer() {
     gTimerInterval = undefined;
 
     var elTimer = document.querySelector('.timer');
-    elTimer.innerText = 0;
+    elTimer.innerText = '0:0:0';
 }
 
 function GameOver(isWin) {
