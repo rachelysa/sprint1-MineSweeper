@@ -13,16 +13,20 @@ const SAFECLICK = '👁‍🗨'
 
 var gGame;
 var gLevel;
+var gBoard;
+
 var gLives;
 var gHints;
 var gSafeClick;
+
 var gElStatusBtn;
-var gBoard;
-var gIsHint;
-var gTimerInterval;
 var gElHighScore;
-var gGameFlow;
+
 var gIsByYourself;
+var gIsHint;
+
+var gTimerInterval;
+var gGameFlow;
 var gHighScore;
 var gCurrHighScore;
 
