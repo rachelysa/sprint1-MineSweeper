@@ -207,7 +207,7 @@ function useHint(elHint) {
     }
     else {
         gIsHint = true;
-        elHint.innerText = '❗️'
+        elHint.innerText = ' ❗️'
     }
 
 
