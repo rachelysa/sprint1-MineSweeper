@@ -29,25 +29,29 @@ var gTimerInterval;
 var gGameFlow;
 var gHighScore;
 var gCurrHighScore;
-
+var gLevelSize;
 function initGame(event) {
-    var levelSize;
+   
 
     gGameFlow = [];
 
     createGame();
 
     if (event) {
+
         if (event.id === 'add-by-yourself') {
-            gIsByYourself = true;
-            levelSize = 4;
+
+                gIsByYourself = true;
+
+                
+
             var elBtnStart = document.querySelector('.start');
             elBtnStart.style.display = 'inline'
 
         }
-        else levelSize = +event.id
+        else gLevelSize = +event.id
     }
-    else levelSize = 4;
+    else gLevelSize = 4;
 
     gHighScore = JSON.parse(localStorage.getItem("highScore"));
     if (!gHighScore) {
@@ -55,7 +59,7 @@ function initGame(event) {
         localStorage.setItem("highScore", gHighScore);
     }
 
-    gLevel = createLevel(levelSize);
+    gLevel = createLevel(gLevelSize);
     gBoard = createBoard(gLevel.SIZE);
 
     gGameFlow.push(JSON.parse(JSON.stringify(gBoard)));
