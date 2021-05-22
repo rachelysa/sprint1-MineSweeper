@@ -33,7 +33,7 @@ function buildBoard(i, j) {
 
     setMines(i, j);
     setNegsCount();
-      //just print the mat of the nebs count-help me to check myself
+    //just print the mat of the nebs count-help me to check myself
     // printNebsCount(gLevel.SIZE);
     renderBoard(gBoard);
 }
@@ -103,25 +103,26 @@ function showTheHidden(event, i, j) {
         //right click
         if (event.button == 2) {
             if (!gBoard[i][j].isMarked) {
-            gGame.markedCount++;
-            checkGameOver();
-            renderAndUpdateCell({ i: i, j: j }, MARK, false, true);}
+                gGame.markedCount++;
+                checkGameOver();
+                renderAndUpdateCell({ i: i, j: j }, MARK, false, true);
+            }
             else {
                 gGame.markedCount--;
-                
+
                 renderAndUpdateCell({ i: i, j: j }, '')
                 return;
             }
             return;
-        } 
-          if (gBoard[i][j].isMarked) return;   
+        }
+        if (gBoard[i][j].isMarked) return;
         //mine Clicked
-         if (gBoard[i][j].isMine) {
+        if (gBoard[i][j].isMine) {
             mineClicked(i, j)
             return;
         }
         //stop the Recursion
-         if (gBoard[i][j].minesAroundCount !== 0) {
+        if (gBoard[i][j].minesAroundCount !== 0) {
             renderAndUpdateCell({ i: i, j: j }, gBoard[i][j].minesAroundCount, true, false, 'show');
             gGame.shownCount++;
             checkGameOver()
@@ -145,6 +146,7 @@ function showTheHidden(event, i, j) {
 }
 //when td was clicked
 function cellClicked(event, i, j) {
+
     if (gGame.isOn) {
         //check if first click on that game
         if (!gTimerInterval) {
